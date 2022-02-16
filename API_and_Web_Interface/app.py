@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request
+from flask import Flask, redirect, render_template, request
+import requests
 import keras
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -25,7 +26,8 @@ def predict():
     # prediction = pred_classes[prediction]
 
     # return value
-    return "hello"
+    print("came here")
+    return "hemlo"
 
 @app.route('/about')
 def about():
@@ -44,7 +46,19 @@ def upload():
 def result():
 
     #about page of cloudees
-    return render_template('result.html')
+    prediction = [1,2,3,4,5,6,7,8,9]
+    return render_template('result.html', pred=prediction)
+
+
+@app.route('/predictweb', methods = ['POST'])
+def predictweb():
+    print("LMAOO")
+    data = request.files
+    r = requests.post(url = 'http://127.0.0.1:5000/predict', data = data)
+    pastebin_url = r.text
+    print(f"The pastebin URL {pastebin_url}")
+    print("came here")
+    return pastebin_url
 
 if __name__ == "__main__":
     app.run(debug=True)
