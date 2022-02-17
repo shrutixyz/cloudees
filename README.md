@@ -2,18 +2,19 @@
 Cloudees is a platform where users can upload images of clouds and find out what category do they belong to. It uses Deep Learning image classifiers to differentiate between the 9 major types of clouds, namely:- <br>
 
 <ul>
-  <li>Cirrus</li>
-  <li>Cirrocumulus</li>
-  <li>Cirrostratus</li>
-  <li>Altocumulus</li>
-  <li>Nimbostratus</li>
-  <li>Cumulus</li>
-  <li>Cumulonimbus</li>
-  <li>Stratocumulus</li>
-  <li>Stratus</li>
+  <li>[Altocumulus](https://en.wikipedia.org/wiki/Altocumulus_cloud)</li>
+  <li>[Cirrus](https://en.wikipedia.org/wiki/Cirrus_cloud)</li>
+  <li>[Cirrocumulus](https://en.wikipedia.org/wiki/Cirrocumulus_cloud)</li>
+  <li>[Cirrostratus](https://en.wikipedia.org/wiki/Cirrostratus_cloud)</li>
+  <li>[Cumulonimbus](https://en.wikipedia.org/wiki/Cumulonimbus_cloud)</li>  
+  <li>[Cumulus](https://en.wikipedia.org/wiki/Cumulus_cloud)</li>
+  <li>[Nimbostratus](https://en.wikipedia.org/wiki/Nimbostratus_cloud)</li>
+  <li>[Stratocumulus](https://en.wikipedia.org/wiki/Stratocumulus_cloud)</li>
+  <li>[Stratus](https://en.wikipedia.org/wiki/Stratus_cloud)</li>
 </ul>
+<br>
 
-todo: embed wikipedia links and add a combined screenshot
+<img src="https://media.discordapp.net/attachments/893813704032931870/943744988490133524/cloudsall.png" width="80%"/>
 
 <br>
 
