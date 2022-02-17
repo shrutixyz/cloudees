@@ -1,6 +1,8 @@
 from flask import Flask, redirect, render_template, request
 import requests
 import keras
+
+from check import realpred
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -17,8 +19,12 @@ def index():
 
 @app.route('/predict', methods = ['POST'])
 def predict():
-    # get image as form data
+    # data = request.files
+    # imagefile = request.files.get('data')
 
+    # imagefile.save('static/testy.jpg')
+    # get image as form data
+    # prediction = realpred(imagefile)
     # run prediction
     # prediction = model.predict([[0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4]])
 
@@ -27,7 +33,7 @@ def predict():
 
     # return value
     print("came here")
-    return "hemlo"
+    return "prediction"
 
 @app.route('/about')
 def about():
@@ -53,8 +59,9 @@ def result():
 @app.route('/predictweb', methods = ['POST'])
 def predictweb():
     print("LMAOO")
-    data = request.files
-    r = requests.post(url = 'http://127.0.0.1:5000/predict', data = data)
+    imagefile = request.files.get('img', '')
+    # data = request.files
+    r = requests.post(url = 'http://127.0.0.1:5000/predict', data = imagefile)
     pastebin_url = r.text
     print(f"The pastebin URL {pastebin_url}")
     print("came here")
