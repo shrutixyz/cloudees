@@ -1,8 +1,10 @@
+import string
 from flask import Flask, redirect, render_template, request
 import requests
 import keras
+import random
 
-from check import realpred
+from predict import realpred
 app = Flask(__name__)
 app.config["DEBUG"] = True
 
@@ -20,20 +22,13 @@ def index():
 @app.route('/predict', methods = ['POST'])
 def predict():
     # data = request.files
-    # imagefile = request.files.get('data')
+    imagefile = request.files.get('sent_file')
+    res = ''.join(random.choices(string.ascii_uppercase +
+                             string.digits, k = 10))
+    imagefile.save(f'static/{res}.jpg')
+    prediction = realpred(f'static/{res}.jpg')
 
-    # imagefile.save('static/testy.jpg')
-    # get image as form data
-    # prediction = realpred(imagefile)
-    # run prediction
-    # prediction = model.predict([[0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4,0,1,2,3,4]])
-
-    # return class value at index
-    # prediction = pred_classes[prediction]
-
-    # return value
-    print("came here")
-    return "prediction"
+    return str(prediction)
 
 @app.route('/about')
 def about():
@@ -46,6 +41,7 @@ def upload():
 
     # upload image here (only gallery not camera)
     return render_template('upload.html')
+
 
 
 @app.route('/result')
@@ -61,11 +57,11 @@ def predictweb():
     print("LMAOO")
     imagefile = request.files.get('img', '')
     # data = request.files
-    r = requests.post(url = 'http://127.0.0.1:5000/predict', data = imagefile)
-    pastebin_url = r.text
-    print(f"The pastebin URL {pastebin_url}")
+    r = requests.post(url = 'http://127.0.0.1:5000/predict', files={'sent_file': imagefile})
+    restext = r.text
+    print(f"The pastebin URL {restext}")
     print("came here")
-    return pastebin_url
+    return render_template('result.html', response=restext)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -4,26 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style/style.css">
     <title>Cloudees | Prediction Result</title>
 </head>
 <body>
-    <style>
-        body{
-            color: white;
-            background-color: black;
-        }
-    </style>
-    <center><h1>RESULTS</h1></center>
+    <center>
+        <h1>RESULTS</h1>
+        <p>the cloud is {{response}}</p>
+        <br>
+        <br><br>
+        <button onclick="window.location.href='/upload'">try for another image</button>
+    </center>
 
-    <p>the results are</p><br>
-    <p>altocumulus {{pred[0]}}</p>
-    <p>cirrocumulus {{pred[1]}}</p>
-    <p>cirrostratus {{pred[2]}}</p>
-    <p>cirrus {{pred[3]}}</p>
-    <p>cumulonimbus {{pred[4]}}</p>
-    <p>cumulus {{pred[5]}}</p>
-    <p>nimbostratus {{pred[6]}}</p>
-    <p>stratocumulus {{pred[7]}}</p>
-    <p>stratus {{pred[8]}}</p>
+
+    
 </body>
 </html>

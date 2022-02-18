@@ -1,68 +1,46 @@
+import 'package:cloudees/constants/routes.dart';
+import 'package:cloudees/screens/error.dart';
+import 'package:cloudees/screens/home.dart';
+import 'package:cloudees/screens/prediction.dart';
 import 'package:flutter/material.dart';
-import 'package:tflite/tflite.dart';
+import 'package:camera/camera.dart';
+import 'package:adaptive_theme/adaptive_theme.dart';
 
-String? res;
+List<CameraDescription>? cameras;
+
 void main() async {
-  runApp(MyApp());
-  res = await Tflite.loadModel(
-      model: "assets/model.tflite",
-      numThreads: 1, // defaults to 1
-      isAsset:
-          true, // defaults to true, set to false to load resources outside assets
-      useGpuDelegate:
-          false // defaults to false, set to true to use GPU delegate
-      );
+  cameras = await availableCameras();
+  runApp(App());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class App extends StatefulWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
+    return AdaptiveTheme(
+      light: ThemeData(
+        brightness: Brightness.light,
+        primarySwatch: Colors.red,
       ),
-      home: Home(),
-    );
-  }
-}
-
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  _HomeState createState() => _HomeState();
-}
-
-class _HomeState extends State<Home> {
-  calculate() async {
-    await Tflite.runModelOnImage(
-        path: "", // required
-        imageMean: 0.0, // defaults to 117.0
-        imageStd: 255.0, // defaults to 1.0
-        numResults: 2, // defaults to 5
-        threshold: 0.2, // defaults to 0.1
-        asynch: true // defaults to true
-        );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: MaterialButton(onPressed: () async {
-          await calculate();
-        }),
+      dark: ThemeData(
+        brightness: Brightness.dark,
+        primarySwatch: Colors.red,
+      ),
+      initial: AdaptiveThemeMode.system,
+      builder: (theme, darkTheme) => MaterialApp(
+        title: "cloudees",
+        routes: {
+          home: (context) => Home(),
+          error: (context) => Error(),
+          prediction: (context) => Prediction(),
+        },
+        home: Home(),
       ),
     );
   }
