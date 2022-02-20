@@ -26,31 +26,46 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveTheme(
       light: ThemeData(
-        primaryIconTheme: IconThemeData(color: Color.fromRGBO(31, 150, 201, 1)),
-        iconTheme: IconThemeData(color: Color.fromRGBO(31, 150, 201, 1)),
-        appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(color: Colors.black),
-            color: lightbg,
-            systemOverlayStyle: SystemUiOverlayStyle.light),
-        brightness: Brightness.light,
-        backgroundColor: lightbg,
-        primaryColor: Color.fromARGB(255, 190, 192, 196),
-        primarySwatch: Colors.pink,
-        scaffoldBackgroundColor: lightbg,
-      ),
+          focusColor: Color.fromRGBO(31, 150, 201, 1),
+          buttonTheme: ButtonThemeData(buttonColor: Colors.black),
+          listTileTheme: ListTileThemeData(
+              iconColor: Colors.black54, textColor: Colors.black54),
+          drawerTheme: DrawerThemeData(backgroundColor: lightbg),
+          primaryIconTheme:
+              IconThemeData(color: Color.fromRGBO(31, 150, 201, 1)),
+          iconTheme: IconThemeData(color: Colors.blue),
+          appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(
+                color: Colors.black,
+              ),
+              color: lightbg,
+              systemOverlayStyle: SystemUiOverlayStyle.light),
+          brightness: Brightness.light,
+          backgroundColor: lightbg,
+          primaryColor: Colors.white,
+          primarySwatch: Colors.pink,
+          shadowColor: Colors.black,
+          scaffoldBackgroundColor: lightbg,
+          dividerColor: Color.fromRGBO(31, 150, 201, 1)),
       dark: ThemeData(
-        iconTheme: IconThemeData(color: Colors.black),
-        appBarTheme: AppBarTheme(
-            iconTheme: IconThemeData(color: Colors.white),
-            color: darkbg,
-            systemOverlayStyle: SystemUiOverlayStyle.dark),
-        scaffoldBackgroundColor: darkbg,
-        primaryColor: Color.fromARGB(255, 33, 40, 44),
-        backgroundColor: darkbg,
-        brightness: Brightness.dark,
-        primarySwatch: Colors.brown,
-      ),
-      initial: AdaptiveThemeMode.light,
+          shadowColor: Colors.white,
+          focusColor: Colors.white,
+          buttonTheme: ButtonThemeData(buttonColor: Colors.blue),
+          listTileTheme: ListTileThemeData(
+              iconColor: Colors.white54, textColor: Colors.white54),
+          drawerTheme: DrawerThemeData(backgroundColor: darkbg),
+          iconTheme: IconThemeData(color: Colors.white),
+          appBarTheme: AppBarTheme(
+              iconTheme: IconThemeData(color: Colors.white),
+              color: darkbg,
+              systemOverlayStyle: SystemUiOverlayStyle.dark),
+          scaffoldBackgroundColor: darkbg,
+          primaryColor: Colors.black,
+          backgroundColor: darkbg,
+          brightness: Brightness.dark,
+          primarySwatch: Colors.brown,
+          dividerColor: Colors.white),
+      initial: AdaptiveThemeMode.dark,
       builder: (theme, darkTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: "cloudees",
