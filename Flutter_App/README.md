@@ -1,16 +1,14 @@
-# cloudees
+# Cloudees Flutter Application
 
-A new Flutter project.
+This part contains the code of our flutter app which uses the REST API from cloudees to make predictions about the category of cloud. A user can click an image or select an existing one from the gallery. Thereafter, the image is sent to the server and the response is returned and shown to the user. We've added most of the essentials features that makes the application stand out pretty much!
 
-## Getting Started
+# Running Locally
 
-This project is a starting point for a Flutter application.
+- make sure you've flutter installed on your system
+- clone the repository
+- ```cd Flutter_App```
+- ```flutter run```
 
-A few resources to get you started if this is your first Flutter project:
+# Screenshots
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+todo: add screenshots

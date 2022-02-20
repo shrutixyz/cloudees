@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class Prediction extends StatefulWidget {
@@ -7,9 +9,16 @@ class Prediction extends StatefulWidget {
   _PredictionState createState() => _PredictionState();
 }
 
+File hehe = File('assets/test.jpg');
+
 class _PredictionState extends State<Prediction> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Container(
+          child: Center(
+        child: Image.file(hehe),
+      )),
+    );
   }
 }
