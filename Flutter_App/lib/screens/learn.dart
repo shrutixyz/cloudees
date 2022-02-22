@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Learn extends StatelessWidget {
   const Learn({Key? key}) : super(key: key);
@@ -6,11 +7,13 @@ class Learn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        child: Center(
-          child: Text("learn more"),
-        ),
-      ),
-    );
+        body: SafeArea(
+      child: Container(
+          child: WebView(
+        initialUrl:
+            "https://github.com/shrutigupta5555/cloudees/tree/main/Flutter_App",
+        javascriptMode: JavascriptMode.unrestricted,
+      )),
+    ));
   }
 }
