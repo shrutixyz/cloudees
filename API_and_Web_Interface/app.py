@@ -1,7 +1,6 @@
 import string
 from flask import Flask, redirect, render_template, request
 import requests
-import keras
 import random
 
 from predict import realpred
