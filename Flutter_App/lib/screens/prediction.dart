@@ -60,7 +60,7 @@ class _PredictionState extends State<Prediction> {
               txt = "fetching...";
             });
             var res = await uploadImage(
-                    hehe.path, "http://cloudees.herokuapp.com/predict")
+                    hehe.path, "http://44.202.31.220:8080/predict")
                 .catchError((err) {
               setState(() {
                 txt = err.toString();
