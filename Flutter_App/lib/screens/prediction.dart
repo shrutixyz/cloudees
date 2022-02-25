@@ -34,7 +34,7 @@ class _PredictionState extends State<Prediction> {
                 onPressed: () async {
                   // post req
                   var res = await uploadImage(hehe.path,
-                          "http://1c9b-2405-201-401b-d9d0-9ca8-13b9-1407-ed70.ngrok.io/predict")
+                          "http://cloudees.herokuapp.com/predict")
                       .catchError((err) {
                     setState(() {
                       txt = err.toString();

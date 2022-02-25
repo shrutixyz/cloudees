@@ -56,7 +56,7 @@ def predictweb():
     print("LMAOO")
     imagefile = request.files.get('img', '')
     # data = request.files
-    r = requests.post(url = 'http://127.0.0.1:5000/predict', files={'sent_file': imagefile})
+    r = requests.post(url = 'http://cloudees.herokuapp.com/predict', files={'sent_file': imagefile})
     restext = r.text
     print(f"The pastebin URL {restext}")
     print("came here")

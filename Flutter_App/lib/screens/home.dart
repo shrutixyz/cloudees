@@ -73,10 +73,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
-    controller = CameraController(
-      cameras[index],
-      ResolutionPreset.max,
-    );
+    controller = CameraController(cameras[index], ResolutionPreset.max,
+        imageFormatGroup: ImageFormatGroup.jpeg, enableAudio: true);
     controller?.initialize().then((_) {
       if (!mounted) {
         return;
@@ -521,8 +519,11 @@ class _HomeState extends State<Home> {
                                               onTap: () async {
                                                 XFile? image =
                                                     await picker.pickImage(
-                                                        source: ImageSource
-                                                            .gallery);
+                                                        source:
+                                                            ImageSource.gallery,
+                                                        ////////////////////////////////////
+                                                        maxWidth: 500,
+                                                        maxHeight: 500);
                                                 setState(() {
                                                   hehe = File(image!.path);
                                                 });
