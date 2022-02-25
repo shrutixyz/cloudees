@@ -1,37 +1,77 @@
 import 'package:flutter/material.dart';
 
-class Usage extends StatelessWidget {
+int index = 1;
+
+class Usage extends StatefulWidget {
   const Usage({Key? key}) : super(key: key);
 
   @override
+  _UsageState createState() => _UsageState();
+}
+
+class _UsageState extends State<Usage> {
+  @override
   Widget build(BuildContext context) {
+    double h = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
           child: Center(
               child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          MaterialButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Skip"),
+          Align(
+            alignment: Alignment.centerRight,
+            child: MaterialButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Skip"),
+            ),
+          ),
+          SizedBox(
+            height: 10,
           ),
           // Container(
           //   height: 800 * 0.8,
           //   width: 450 * 0.8,
           //   color: Colors.pink,
           // ),
-          finalScreen(context),
+          Image.asset(
+            "assets/usage/$index.jpg",
+            height: 2 / 3 * h,
+          ),
+          SizedBox(
+            height: 10,
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (index != 4) {
+                    setState(() {
+                      index++;
+                    });
+                  } else {
+                    setState(() {
+                      index = 1;
+                    });
+                  }
+                },
                 child: Text("previous"),
               ),
               MaterialButton(
-                onPressed: () {},
+                onPressed: () {
+                  if (index != 0) {
+                    setState(() {
+                      index--;
+                    });
+                  } else {
+                    setState(() {
+                      index = 4;
+                    });
+                  }
+                },
                 child: Text("next"),
               )
             ],
@@ -40,29 +80,4 @@ class Usage extends StatelessWidget {
       ))),
     );
   }
-}
-
-finalScreen(context) {
-  return Container(
-    height: 800 * 0.8,
-    width: 450 * 0.8,
-    color: Colors.lightBlueAccent,
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Text(
-          "woohoo!! this is all you need to get started with cloudees",
-          textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 30),
-        ),
-        MaterialButton(
-          color: Colors.deepPurple[200],
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text("lets begin"),
-        )
-      ],
-    ),
-  );
 }

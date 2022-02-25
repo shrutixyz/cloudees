@@ -20,7 +20,7 @@ class About extends StatelessWidget {
             height: 30,
           ),
           Text(
-              "Cloudees is a whole platform on its own, powered by deep learning models made using Tensorflow libraries including Keras, by optimizing the powers of Habana Gaudi DL1-EC2 instances. Cloudees is available on web with a Flask backend, and on android mobile platform as a Flutter application. A user would need to either click a picture of the sky, or upload an existing one. Cloudees resize the image accordingly, and sends it to our Deep Learning model hosted as a flask API, in form of a POST request, with the image file as an attachment. The app thereafter, receives the response, the most probable category the cloud belongs to, and portrays that to our user in a visually appeasing manner."),
+              "Cloudees is an application that lets users classify between clouds through such a simple and clean user interface. A user just need to either click or select an existing image from the gallery, and then they can run the prediction and know what category does that specific cloud fall into. Under the hood, it works by utilising the powers of Deep Learning. Technically, it has been trained over 9000+ images of clouds of 9 major categories, through Convolutional Neural Networks, and has an accuracy of 90%. The request is sent from application to our hosted REST API, which resizes the image accordingly, and then performs the prediction and returns that to our user. So, have fun and enjoy cloud aesthetics <3"),
           SizedBox(
             height: 20,
           ),
