@@ -1,23 +1,22 @@
-# cloudees
-Cloudees is a platform where users can upload images of clouds and find out what category do they belong to. It uses Deep Learning image classifiers to differentiate between the 9 major types of clouds, namely:- <br>
+# Model Training
 
-<ul>
-  <li>Cirrus</li>
-  <li>Cirrocumulus</li>
-  <li>Cirrostratus</li>
-  <li>Altocumulus</li>
-  <li>Nimbostratus</li>
-  <li>Cumulus</li>
-  <li>Cumulonimbus</li>
-  <li>Stratocumulus</li>
-  <li>Stratus</li>
-</ul>
+This directory contains the code that we used to train our Deep Learning CNN model to classify images of clouds into major 9 categories. The step by step code is present in train.ipynb jupyter notebook file, and can be run as it is. We ran it on DL1 EC2 instance provided by AWs and powered by Habana Gaudi Accelerators
 
 <br>
 
-# Tech Stack
+# Running on EC2
 
-# Running locally
+- Create EC2 instance from AWS console dashboard
+- Select dl1.24xlarge instance type [note: this instance type is not in the free tier]
+- connect it to your local system via ssh preferably
+- install git if youll be importing files from git
+- install python 3.7
+- install pip package manager
+- install anaconda
+- activate python 3.7 environment for conda
+- install jupyter notebook
+- get jupyter notebook running
 
-# Demo Video
+A glimpse:-
 
+<img src="https://media.discordapp.net/attachments/933323050378723358/946286835682918430/unknown.png" width="80%"/>
