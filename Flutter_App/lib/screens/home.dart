@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
               Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
-                  Image.asset("assets/$imageIndex.jpg"),
+                  Image.asset("assets/headers/$imageIndex.jpg"),
                   Center(
                       child: Align(
                     alignment: Alignment.center,
@@ -276,11 +276,14 @@ class _HomeState extends State<Home> {
                                   width: w,
                                   color: Colors.transparent,
                                   child: Opacity(
-                                      opacity: op,
+                                      opacity: 1,
                                       child: Stack(
                                         children: <Widget>[
-                                          Image.asset(
-                                            gridUrl,
+                                          Opacity(
+                                            opacity: op,
+                                            child: Image.asset(
+                                              gridUrl,
+                                            ),
                                           ),
                                           Center(
                                               child: Opacity(
@@ -307,7 +310,7 @@ class _HomeState extends State<Home> {
                                               color: Theme.of(context)
                                                   .primaryColor,
                                             ),
-                                          )
+                                          ),
                                         ],
                                       )),
                                 ),

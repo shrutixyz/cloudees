@@ -1,11 +1,8 @@
 import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
-import 'package:flutter/services.dart';
 
-Future<String?> uploadImage(filepath, url) async {
+Future<String> uploadImage(filepath, url) async {
   print("starting");
   var request = http.MultipartRequest('POST', Uri.parse(url));
   var multipartFile = http.MultipartFile.fromBytes(

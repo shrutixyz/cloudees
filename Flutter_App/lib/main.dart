@@ -26,28 +26,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveTheme(
       light: ThemeData(
-          focusColor: Color.fromRGBO(31, 150, 201, 1),
-          buttonTheme: ButtonThemeData(buttonColor: Colors.black),
-          listTileTheme: ListTileThemeData(
-              iconColor: Colors.black54, textColor: Colors.black54),
-          drawerTheme: DrawerThemeData(backgroundColor: lightbg),
-          primaryIconTheme:
-              IconThemeData(color: Color.fromRGBO(31, 150, 201, 1)),
-          iconTheme: IconThemeData(color: Colors.blue),
-          appBarTheme: AppBarTheme(
-              iconTheme: IconThemeData(
-                color: Colors.black,
-              ),
-              color: lightbg,
-              systemOverlayStyle: SystemUiOverlayStyle.light),
-          brightness: Brightness.light,
-          backgroundColor: lightbg,
-          primaryColor: Colors.white,
-          primarySwatch: Colors.pink,
-          shadowColor: Colors.black,
-          scaffoldBackgroundColor: lightbg,
-          dividerColor: Color.fromRGBO(31, 150, 201, 1)),
+        focusColor: Color.fromRGBO(31, 150, 201, 1),
+        buttonTheme: ButtonThemeData(buttonColor: Colors.black),
+        listTileTheme: ListTileThemeData(
+            iconColor: Colors.black54, textColor: Colors.black54),
+        drawerTheme: DrawerThemeData(backgroundColor: lightbg),
+        primaryIconTheme: IconThemeData(color: Color.fromRGBO(31, 150, 201, 1)),
+        iconTheme: IconThemeData(color: Colors.blue),
+        appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(
+              color: Colors.black,
+            ),
+            color: lightbg,
+            systemOverlayStyle: SystemUiOverlayStyle.light),
+        brightness: Brightness.light,
+        backgroundColor: lightbg,
+        primaryColor: Colors.white,
+        primarySwatch: Colors.lightBlue,
+        shadowColor: Colors.black,
+        scaffoldBackgroundColor: lightbg,
+        dividerColor: Color.fromRGBO(31, 150, 201, 1),
+        canvasColor: Colors.black,
+      ),
       dark: ThemeData(
+          canvasColor: Colors.white,
           shadowColor: Colors.white,
           focusColor: Colors.white,
           buttonTheme: ButtonThemeData(buttonColor: Colors.blue),
@@ -63,7 +65,7 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.black,
           backgroundColor: darkbg,
           brightness: Brightness.dark,
-          primarySwatch: Colors.brown,
+          primarySwatch: Colors.blueGrey,
           dividerColor: Colors.white),
       initial: AdaptiveThemeMode.dark,
       builder: (theme, darkTheme) => MaterialApp(
