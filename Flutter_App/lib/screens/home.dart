@@ -518,8 +518,14 @@ class _HomeState extends State<Home> {
                                                 size: 85,
                                               ),
                                             ),
-                                            InkWell(
-                                              onTap: () async {
+                                            MaterialButton(
+                                              height: 65,
+                                              minWidth: 65,
+                                              shape: CircleBorder(
+                                                  side: BorderSide(
+                                                      color: Theme.of(context)
+                                                          .dividerColor)),
+                                              onPressed: () async {
                                                 XFile? image =
                                                     await picker.pickImage(
                                                         source:
@@ -536,12 +542,12 @@ class _HomeState extends State<Home> {
                                                         builder: (context) =>
                                                             Prediction()));
                                               },
-                                              child: CircleAvatar(
-                                                backgroundImage: AssetImage(
-                                                    "assets/test.jpg"),
-                                                radius: 33,
+                                              child: Icon(
+                                                Icons.image_search_sharp,
+                                                color: Theme.of(context)
+                                                    .dividerColor,
                                               ),
-                                            )
+                                            ),
                                           ],
                                         ),
                                         SizedBox(

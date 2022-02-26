@@ -53,7 +53,6 @@ def result():
 
 @app.route('/predictweb', methods = ['POST'])
 def predictweb():
-    print("LMAOO")
     imagefile = request.files.get('img', '')
     # data = request.files
     r = requests.post(url = 'http://cloudees.herokuapp.com/predict', files={'sent_file': imagefile})

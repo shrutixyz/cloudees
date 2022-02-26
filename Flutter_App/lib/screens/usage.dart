@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-int index = 1;
+int index = 0;
 
 class Usage extends StatefulWidget {
   const Usage({Key? key}) : super(key: key);
@@ -8,6 +8,13 @@ class Usage extends StatefulWidget {
   @override
   _UsageState createState() => _UsageState();
 }
+
+List<String> imgUrl = [
+  "https://i.ibb.co/mDT1QFF/1.png",
+  "https://i.ibb.co/VLVnDX1/2.png",
+  "https://i.ibb.co/R6c1Sq5/3.png",
+  "https://i.ibb.co/pRYJNm5/4.png"
+];
 
 class _UsageState extends State<Usage> {
   @override
@@ -36,8 +43,8 @@ class _UsageState extends State<Usage> {
           //   width: 450 * 0.8,
           //   color: Colors.pink,
           // ),
-          Image.asset(
-            "assets/usage/$index.jpg",
+          Image.network(
+            imgUrl[index],
             height: 2 / 3 * h,
           ),
           SizedBox(
@@ -48,13 +55,13 @@ class _UsageState extends State<Usage> {
             children: <Widget>[
               MaterialButton(
                 onPressed: () {
-                  if (index != 4) {
+                  if (index != 3) {
                     setState(() {
                       index++;
                     });
                   } else {
                     setState(() {
-                      index = 1;
+                      index = 0;
                     });
                   }
                 },
@@ -68,7 +75,7 @@ class _UsageState extends State<Usage> {
                     });
                   } else {
                     setState(() {
-                      index = 4;
+                      index = 3;
                     });
                   }
                 },
