@@ -15,7 +15,7 @@ Cloudees is a platform where users can upload images of clouds and find out what
 </ul>
 <br>
 
-<img src="https://media.discordapp.net/attachments/893813704032931870/943744988490133524/cloudsall.png" width="80%"/>
+<img src="https://media.discordapp.net/attachments/893813704032931870/943752266341576724/allcouds.png" width="80%"/>
 
 <br>
 
@@ -34,11 +34,11 @@ For flutter, make sure you've flutter installed, then:- <br>
 
 For Flask web and API, make sure you've python environment enabled, then:- <br>
 - ```cd API_and_Web_Interface```
-- ```pip install requirements.txt```
+- ```pip install -r requirements.txt```
 - ```python app.py```
 
 For performing the data augmentation locally:- <br>
-- ```cd Data_Augmentation```
+- ```cd data_augmentation```
 - ```python app.py```
 
 For performing model training:- <br>
