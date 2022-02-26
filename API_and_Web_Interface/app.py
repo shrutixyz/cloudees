@@ -50,6 +50,9 @@ def result():
     prediction = [1,2,3,4,5,6,7,8,9]
     return render_template('result.html', pred=prediction)
 
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
 
 @app.route('/predictweb', methods = ['POST'])
 def predictweb():
