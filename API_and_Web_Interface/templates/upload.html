@@ -59,14 +59,14 @@
 <script>
   function getBase64Image(img) {
     var canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
+    canvas.width = img.naturalWidth;
+    canvas.height = img.naturalHeight;
 
     var ctx = canvas.getContext("2d");
     ctx.drawImage(img, 0, 0);
 
     var dataURL = canvas.toDataURL("image/png");
-
+   
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
     function readURL(input) {
@@ -86,6 +86,7 @@
         };
 
         reader.readAsDataURL(input.files[0]);
+        // console.log(reader)
     }
     }
 </script>
