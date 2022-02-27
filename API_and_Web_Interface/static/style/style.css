@@ -168,3 +168,33 @@ input[type="submit"]{
     border-radius: 0.5rem;
 }
 
+/* 
+======================================================
+result
+======================================================
+*/
+
+.polaroid {
+    background-color: var(--clr-font);
+    
+    width: 25%;
+    height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.polaroid img {
+    width: 80%;
+}
+
+.polaroid p {
+    color: var(--clr-bg);
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+
+
+
