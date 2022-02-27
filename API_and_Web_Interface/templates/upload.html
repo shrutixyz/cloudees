@@ -12,35 +12,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="static/style/style.css">
+    <link rel="stylesheet" href="../static/style/style.css">
     <title>Cloudees | Upload Image</title>
 </head>
 <body>
-    <center><h1>UPLOAD IMAGE</h1>
-    <form action="/predictweb" method="POST" enctype="multipart/form-data">
-  <label for="img">Select image:</label>
-  <input type="file" id="img" name="img" accept="image/*" onchange="readURL(this);">
-  <input type="submit">
-</form>
+  <nav>
+    <div class="nav-container">
+        <img src="../static/assets/logo.png" alt="logo" />
+        <h6>cloudees</h6>
+    </div>
+    <div class="nav-container">
+        <a href="/upload">Get Started</a>
+        <a href="/about">About</a>
+    </div>
+</nav>
+    <div class="upload">
+      <center>
+
+        <div class="preview-container">
+  
+          <img id="preview" alt="">
+        </div>
+        <form action="/predictweb" method="POST" enctype="multipart/form-data">
+          <br>
+          <div class="btn-container">
+
+            <label class="custom-file-upload">
+              <input type="file" class="custom-file-input" id="img" name="img" accept="image/*" onchange="readURL(this);"/>
+              Choose an image
+          </label>
+            <!-- <input type="file" class="custom-file-input" id="img" name="img" accept="image/*" onchange="readURL(this);"> -->
+            <input type="submit">
+          </div>
+        </form>
+        
+        
+      </center>
+    
+
+    </div>
+   
 
 
-<img src="" id="preview" alt="">
 
-
-</center>
 
 <script>
     function readURL(input) {
-if (input.files && input.files[0]) {
-var reader = new FileReader();
+        if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-reader.onload = function (e) {
-  $('#preview').attr('src', e.target.result).width(150);
-};
+        reader.onload = function (e) {
+          $('#preview').attr('src', e.target.result);
+          
+        };
 
-reader.readAsDataURL(input.files[0]);
-}
-}
+        reader.readAsDataURL(input.files[0]);
+    }
+    }
 </script>
 </body>
 </html>

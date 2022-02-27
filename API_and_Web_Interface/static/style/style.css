@@ -18,21 +18,36 @@ body{
     color: var(--clr-font);
     background-color: var(--clr-bg);
     font-family: 'Poppins';
-    margin: -1rem 2rem;
+
     height: 100vh;
     overflow: hidden;
 }
 
 nav {
     display: flex;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
+    background-color: #181f29;
+    margin: -1rem 0;
+    padding: 0 2rem;
 }
 
-nav h6 {
+a {
+    text-decoration: none;
+    color: var(--clr-font);
+}
+
+nav h6, nav a {
     margin-top: 0.5rem;
     font-size: 1rem;
     font-weight: 400;
+    margin-right: 1rem;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    
 }
 
 
@@ -63,7 +78,12 @@ button {
     color: var(--clr-font);
     font-size: 1.25rem;
     margin-right: 1rem;
-    border-radius: 0.75rem;
+    border-radius: 0.5rem;
+}
+
+button:hover{
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .dark {
@@ -76,6 +96,74 @@ button {
 
 .left {
     margin-top: -10rem;
-    width: 40%;
+    width: 45%;
+}
+
+
+/* 
+======================================================
+Upload
+======================================================
+*/
+
+.upload {
+    margin-top: 3rem;
+
+}
+
+.preview-container {
+    width: 60%;
+    height: 60vh;
+    background-color: #222935;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#preview {
+    width: 50%;
+    height: 80%;
+    object-fit: contain;
+    text-align: center;
    
 }
+
+
+
+.btn-container {
+    width: 60%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input[type="file"]{
+    display: none;
+}
+
+.custom-file-upload {
+    
+    display: inline-block;
+    background-color: var(--clr-light-bg);
+    border: none;
+    padding: 0.5rem 2rem;
+    color: var(--clr-font);
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+}
+
+.custom-file-upload:hover{
+    opacity: 0.8;
+}
+
+input[type="submit"]{
+    background-color: var(--clr-accent);
+    border: none;
+    padding: 0.5rem 2rem;
+    color: var(--clr-font);
+    font-size: 1.25rem;
+    margin-right: 1rem;
+    border-radius: 0.5rem;
+}
+
