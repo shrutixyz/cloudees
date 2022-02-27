@@ -52,6 +52,7 @@ nav h6, nav a {
 
 
 .container {
+    margin: 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;

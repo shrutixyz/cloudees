@@ -10,7 +10,7 @@
 <body>
     <nav>
         <div class="nav-container">
-            <img src="../static/assets/logo.png" alt="logo" />
+            <img src="static/assets/logo.png" alt="logo" />
             <h6>cloudees</h6>
         </div>
         <div class="nav-container">
@@ -22,12 +22,19 @@
         <br><br><br>
         <h2>RESULTS</h2>
         <p>the cloud is {{response}}</p>
-        <br>
-        <br><br>
+        <div class="polaroid">
+            <img src="" id="tableBanner" alt="">
+        </div>
         <button onclick="window.location.href='/upload'">try for another image</button>
     </center>
 
 
-    
+    <script>
+        window.addEventListener("load", e => {
+            var dataImage = localStorage.getItem('imgData');
+bannerImg = document.getElementById('tableBanner');
+bannerImg.src = "data:image/png;base64," + dataImage;
+        })
+    </script>
 </body>
 </html>

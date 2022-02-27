@@ -57,12 +57,31 @@
 
 
 <script>
+  function getBase64Image(img) {
+    var canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    var dataURL = canvas.toDataURL("image/png");
+
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
     function readURL(input) {
         if (input.files && input.files[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
           $('#preview').attr('src', e.target.result);
+
+          bannerImage = document.getElementById('preview');
+          bannerImage.addEventListener("load", e => {
+
+          imgData = getBase64Image(bannerImage);
+          localStorage.setItem("imgData", imgData);
+          })
           
         };
 

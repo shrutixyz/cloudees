@@ -1,7 +1,9 @@
 import string
+from turtle import up
 from flask import Flask, redirect, render_template, request
 import requests
 import random
+from PIL import Image
 
 from predict import realpred
 app = Flask(__name__)
@@ -62,7 +64,7 @@ def predictweb():
     restext = r.text
     print(f"The pastebin URL {restext}")
     print("came here")
-    return render_template('result.html', response=restext)
-
-if __name__ == "__main__":
+    img = Image.open("static/assets/logo.png")
+    return render_template('result.html', response=restext, uploaded_image= img)
+if __name__ ==  "__main__":
     app.run(debug=True)
