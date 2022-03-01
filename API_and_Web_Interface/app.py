@@ -1,5 +1,4 @@
 import string
-from turtle import up
 from flask import Flask, redirect, render_template, request
 import requests
 import random

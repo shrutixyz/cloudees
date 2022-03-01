@@ -186,7 +186,10 @@ result
 }
 
 .polaroid img {
+    object-fit: cover;
+    object-position: top;
     width: 80%;
+    max-height: 80%;
 }
 
 .polaroid p {
