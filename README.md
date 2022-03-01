@@ -50,8 +50,16 @@ For viewing the dataset:- <br>
 
 # Demo Video
 
-todo: add demo video link here
+https://youtu.be/nzDzdQV6-lo
 
 # Screenshots
 
-todo: add screenshots here
+<img src="https://media.discordapp.net/attachments/873911486488121344/948257227783942184/unknown.png"/> <br>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948257334277312563/unknown.png"/> <br>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948257452539924480/unknown.png"/> <br>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948257563319869530/unknown.png"/> <br>
+
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065013157949/Screenshot_20220301-220811.jpg" width="20%"/>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065315143720/Screenshot_20220301-220827.jpg" width="20%"/>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065315143720/Screenshot_20220301-220827.jpg" width="20%"/>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065591992420/Screenshot_20220301-220845.jpg" width="20%"/>
