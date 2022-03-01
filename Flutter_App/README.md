@@ -11,4 +11,9 @@ This part contains the code of our flutter app which uses the REST API from clou
 
 # Screenshots
 
-todo: add screenshots
+
+
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065013157949/Screenshot_20220301-220811.jpg" width="20%"/>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065315143720/Screenshot_20220301-220827.jpg" width="20%"/>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065315143720/Screenshot_20220301-220827.jpg" width="20%"/>
+<img src="https://media.discordapp.net/attachments/873911486488121344/948258065591992420/Screenshot_20220301-220845.jpg" width="20%"/>
