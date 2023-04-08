@@ -6,6 +6,7 @@ import 'package:cloudees/utils/classifier_quant.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:image/image.dart' as img;
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class Prediction extends StatefulWidget {
   const Prediction({Key? key}) : super(key: key);
@@ -19,6 +20,7 @@ File hehe = File('assets/test.jpg');
 class _PredictionState extends State<Prediction> {
   bool isloaded = false;
   late Classifier _classifier;
+  late final data;
 
   @override
   void initState() {
@@ -26,10 +28,10 @@ class _PredictionState extends State<Prediction> {
     _classifier = ClassifierQuant();
   }
 
-  Future<Map<String, double>> _predict() async {
+  Future<List<MapEntry<String, double>>> _predict() async {
     print("here");
     img.Image imageInput = img.decodeImage(hehe.readAsBytesSync())!;
-    Map<String, double> pred = _classifier.predict(imageInput);
+    List<MapEntry<String, double>> pred = _classifier.predict(imageInput);
     return pred;
   }
 
@@ -37,29 +39,42 @@ class _PredictionState extends State<Prediction> {
     if (!isloaded) {
       return CircularProgressIndicator();
     } else {
-      return Row(
+      return Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text(
-            txt,
-            style: TextStyle(fontSize: 40),
-          ),
-          IconButton(
-            onPressed: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => WebView(
-              //               javascriptMode: JavascriptMode.unrestricted,
-              //               initialUrl:
-              //                   "https://en.wikipedia.org/wiki/${txt}_cloud",
-              //             )));
-            },
-            icon: Icon(
-              Icons.info_outline_rounded,
-              color: Theme.of(context).shadowColor,
-            ),
-          )
+          SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
+              primaryYAxis: NumericAxis(minimum: 0, maximum: 100, interval: 10),
+              series: <ChartSeries<MapEntry<String, double>, String>>[
+                BarSeries<MapEntry<String, double>, String>(
+                    dataSource: data,
+                    xValueMapper: (MapEntry<String, double> data, _) =>
+                        data.key.split(" ")[1],
+                    yValueMapper: (MapEntry<String, double> data, _) =>
+                        data.value,
+                    name: 'Gold',
+                    color: Color.fromRGBO(8, 142, 255, 1))
+              ]),
+          // Text(
+          //   txt,
+          //   style: TextStyle(fontSize: 40),
+          // ),
+          // IconButton(
+          //   onPressed: () {
+          //     // Navigator.push(
+          //     //     context,
+          //     //     MaterialPageRoute(
+          //     //         builder: (context) => WebView(
+          //     //               javascriptMode: JavascriptMode.unrestricted,
+          //     //               initialUrl:
+          //     //                   "https://en.wikipedia.org/wiki/${txt}_cloud",
+          //     //             )));
+          //   },
+          //   icon: Icon(
+          //     Icons.info_outline_rounded,
+          //     color: Theme.of(context).shadowColor,
+          //   ),
+          // )
         ],
       );
     }
@@ -81,7 +96,7 @@ class _PredictionState extends State<Prediction> {
             var res = await _predict();
 
             setState(() {
-              txt = getTopProbability(res).key.toString().split(" ")[1];
+              data = res;
               isloaded = true;
             });
             print(res);

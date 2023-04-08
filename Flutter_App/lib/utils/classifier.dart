@@ -5,6 +5,7 @@ import 'package:collection/collection.dart';
 import 'package:logger/logger.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
 import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
+import 'package:collection/collection.dart';
 
 abstract class Classifier {
   late Interpreter interpreter;
@@ -84,7 +85,7 @@ abstract class Classifier {
         .process(_inputImage);
   }
 
-  Map<String, double> predict(Image image) {
+  List<MapEntry<String, double>> predict(Image image) {
     final pres = DateTime.now().millisecondsSinceEpoch;
     _inputImage = TensorImage(_inputType);
     _inputImage.loadImage(image);
@@ -102,9 +103,12 @@ abstract class Classifier {
     Map<String, double> labeledProb = TensorLabel.fromList(
             labels, _probabilityProcessor.process(_outputBuffer))
         .getMapWithFloatValue();
-    final pred = getTopProbability(labeledProb);
+    final pred = getNormalisedList(labeledProb);
+    print("hereeeeeeee");
+    print(pred);
+    // final pred = getTopProbability(labeledProb);
 
-    return labeledProb;
+    return pred;
   }
 
   void close() {
@@ -117,6 +121,37 @@ MapEntry<String, double> getTopProbability(Map<String, double> labeledProb) {
   pq.addAll(labeledProb.entries);
 
   return pq.first;
+}
+
+List<MapEntry<String, double>> getNormalisedList(
+    Map<String, double> labeledProb) {
+  final filteredList =
+      labeledProb.values.where((element) => element >= 0).toList();
+  filteredList.sort();
+
+  double maxValue = filteredList.sum;
+
+  // update normalised values
+  labeledProb.forEach((key, value) {
+    if (value < 0) {
+      labeledProb[key] = 0;
+    } else {
+      double newValue = (value / maxValue) * 100;
+      labeledProb[key] = newValue;
+    }
+  });
+
+  List<MapEntry<String, double>> normalisedList = [];
+  // convert map to list of map
+  labeledProb
+      .forEach((k, v) => normalisedList.add(MapEntry<String, double>(k, v)));
+
+  // sort in desc order
+  normalisedList.sort((b, a) => -a.value.compareTo(b.value));
+
+  print(normalisedList);
+
+  return normalisedList;
 }
 
 int compare(MapEntry<String, double> e1, MapEntry<String, double> e2) {
