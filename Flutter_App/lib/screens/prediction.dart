@@ -1,8 +1,11 @@
 import 'dart:io';
 
 import 'package:cloudees/requests/request.dart';
+import 'package:cloudees/utils/classifier.dart';
+import 'package:cloudees/utils/classifier_quant.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:image/image.dart' as img;
 
 class Prediction extends StatefulWidget {
   const Prediction({Key? key}) : super(key: key);
@@ -11,10 +14,28 @@ class Prediction extends StatefulWidget {
   _PredictionState createState() => _PredictionState();
 }
 
-File hehe = File('assets/test.jpg');
+Image hehe = Image.file(File('assets/test.jpg'));
 
 class _PredictionState extends State<Prediction> {
   bool isloaded = false;
+  late Classifier _classifier;
+
+  @override
+  void initState() {
+    super.initState();
+    _classifier = ClassifierQuant();
+  }
+
+  void _predict() async {
+    // img.Image imageInput = img.decodeImage(_hehe)!;
+    // var pred = _classifier.predict(imageInput);
+    // return pred;
+
+    // setState(() {
+    //   this.category = pred;
+    // });
+  }
+
   loadScreen() {
     if (!isloaded) {
       return CircularProgressIndicator();
@@ -28,14 +49,14 @@ class _PredictionState extends State<Prediction> {
           ),
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => WebView(
-                            javascriptMode: JavascriptMode.unrestricted,
-                            initialUrl:
-                                "https://en.wikipedia.org/wiki/${txt}_cloud",
-                          )));
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => WebView(
+              //               javascriptMode: JavascriptMode.unrestricted,
+              //               initialUrl:
+              //                   "https://en.wikipedia.org/wiki/${txt}_cloud",
+              //             )));
             },
             icon: Icon(
               Icons.info_outline_rounded,
@@ -59,18 +80,13 @@ class _PredictionState extends State<Prediction> {
               gotResults = true;
               txt = "fetching...";
             });
-            var res = await uploadImage(
-                    hehe.path, "http://44.202.31.220:8080/predict")
-                .catchError((err) {
-              setState(() {
-                txt = err.toString();
-              });
-            });
-            setState(() {
-              txt = res.toString();
-              isloaded = true;
-            });
-            print(res);
+            _predict();
+            // var res = _predict();
+            // setState(() {
+            //   txt = res.toString();
+            //   isloaded = true;
+            // });
+            // print(res);
           },
           child: Container(
             // minWidth: 100,
@@ -112,12 +128,11 @@ class _PredictionState extends State<Prediction> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(
-            child: Container(
-                height: w - 40,
-                width: w - 40,
-                child: Image.file(hehe,
-                    fit: BoxFit.cover, alignment: Alignment.topCenter)),
-          ),
+              child: Container(
+            height: w - 40,
+            width: w - 40,
+            child: hehe,
+          )),
           // gotResults(),
           SizedBox(
             height: 40,

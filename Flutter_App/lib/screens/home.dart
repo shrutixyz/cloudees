@@ -6,6 +6,8 @@ import 'package:cloudees/screens/pictures.dart';
 import 'package:cloudees/screens/privacy.dart';
 import 'package:cloudees/screens/tandc.dart';
 import 'package:cloudees/screens/usage.dart';
+import 'package:cloudees/utils/classifier_quant.dart';
+import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
@@ -14,6 +16,8 @@ import 'package:cloudees/screens/prediction.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:math';
+
+import '../utils/classifier.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -45,9 +49,11 @@ Icon timerIcon = Icon(Icons.timer_off);
 bool isTimerOn = false;
 Color timerOp = Colors.transparent;
 int _start = 3;
+File? _hehe;
 
 class _HomeState extends State<Home> {
   late Timer _timer;
+  late Classifier _classifier;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -67,12 +73,24 @@ class _HomeState extends State<Home> {
     );
   }
 
+  void _predict() async {
+    print("here");
+    img.Image imageInput = img.decodeImage(_hehe!.readAsBytesSync())!;
+    var pred = _classifier.predict(imageInput);
+    print(pred);
+
+    // setState(() {
+    //   this.category = pred;
+    // });
+  }
+
   CameraController? controller;
 
   // Color bgcolor = ;
   @override
   void initState() {
     super.initState();
+    _classifier = ClassifierQuant();
     controller = CameraController(cameras[index], ResolutionPreset.max,
         imageFormatGroup: ImageFormatGroup.jpeg, enableAudio: true);
     controller?.initialize().then((_) {
@@ -478,15 +496,17 @@ class _HomeState extends State<Home> {
                                                         ?.takePicture()
                                                         .then((value) => {
                                                               setState(() {
-                                                                hehe = File(
-                                                                    value.path);
+                                                                hehe = Image.file(
+                                                                    File(value
+                                                                        .path));
                                                               }),
-                                                              Navigator.push(
-                                                                  context,
-                                                                  MaterialPageRoute(
-                                                                      builder:
-                                                                          (context) =>
-                                                                              Prediction()))
+                                                              _predict()
+                                                              // Navigator.push(
+                                                              //     context,
+                                                              //     MaterialPageRoute(
+                                                              //         builder:
+                                                              //             (context) =>
+                                                              //                 Prediction()))
                                                             });
                                                     setState(() {
                                                       timerOp =
@@ -499,8 +519,9 @@ class _HomeState extends State<Home> {
                                                       ?.takePicture()
                                                       .then((value) => {
                                                             setState(() {
-                                                              hehe = File(
-                                                                  value.path);
+                                                              hehe = Image.file(
+                                                                  File(value
+                                                                      .path));
                                                             }),
                                                             Navigator.push(
                                                                 context,
@@ -534,7 +555,9 @@ class _HomeState extends State<Home> {
                                                         maxWidth: 500,
                                                         maxHeight: 500);
                                                 setState(() {
-                                                  hehe = File(image!.path);
+                                                  _hehe = File(image!.path);
+                                                  hehe = Image.file(
+                                                      File(image.path));
                                                 });
                                                 Navigator.push(
                                                     context,

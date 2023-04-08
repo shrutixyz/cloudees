@@ -9,11 +9,12 @@ class Learn extends StatelessWidget {
     return Scaffold(
         body: SafeArea(
       child: Container(
-          child: WebView(
-        initialUrl:
-            "https://github.com/shrutigupta5555/cloudees/tree/main/Flutter_App",
-        javascriptMode: JavascriptMode.unrestricted,
-      )),
+          //     child: WebView(
+          //   initialUrl:
+          //       "https://github.com/shrutigupta5555/cloudees/tree/main/Flutter_App",
+          //   javascriptMode: JavascriptMode.unrestricted,
+          // )
+          ),
     ));
   }
 }
