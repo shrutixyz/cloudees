@@ -75,13 +75,9 @@ class _HomeState extends State<Home> {
 
   void _predict() async {
     print("here");
-    img.Image imageInput = img.decodeImage(_hehe!.readAsBytesSync())!;
+    img.Image imageInput = img.decodeImage(hehe.readAsBytesSync())!;
     var pred = _classifier.predict(imageInput);
     print(pred);
-
-    // setState(() {
-    //   this.category = pred;
-    // });
   }
 
   CameraController? controller;
@@ -496,17 +492,16 @@ class _HomeState extends State<Home> {
                                                         ?.takePicture()
                                                         .then((value) => {
                                                               setState(() {
-                                                                hehe = Image.file(
-                                                                    File(value
-                                                                        .path));
+                                                                hehe = File(
+                                                                    value.path);
                                                               }),
-                                                              _predict()
-                                                              // Navigator.push(
-                                                              //     context,
-                                                              //     MaterialPageRoute(
-                                                              //         builder:
-                                                              //             (context) =>
-                                                              //                 Prediction()))
+                                                              // _predict()
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (context) =>
+                                                                              Prediction()))
                                                             });
                                                     setState(() {
                                                       timerOp =
@@ -519,9 +514,8 @@ class _HomeState extends State<Home> {
                                                       ?.takePicture()
                                                       .then((value) => {
                                                             setState(() {
-                                                              hehe = Image.file(
-                                                                  File(value
-                                                                      .path));
+                                                              hehe = File(
+                                                                  value.path);
                                                             }),
                                                             Navigator.push(
                                                                 context,
@@ -555,9 +549,7 @@ class _HomeState extends State<Home> {
                                                         maxWidth: 500,
                                                         maxHeight: 500);
                                                 setState(() {
-                                                  _hehe = File(image!.path);
-                                                  hehe = Image.file(
-                                                      File(image.path));
+                                                  hehe = File(image!.path);
                                                 });
                                                 Navigator.push(
                                                     context,

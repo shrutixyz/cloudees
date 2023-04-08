@@ -14,7 +14,7 @@ class Prediction extends StatefulWidget {
   _PredictionState createState() => _PredictionState();
 }
 
-Image hehe = Image.file(File('assets/test.jpg'));
+File hehe = File('assets/test.jpg');
 
 class _PredictionState extends State<Prediction> {
   bool isloaded = false;
@@ -26,14 +26,11 @@ class _PredictionState extends State<Prediction> {
     _classifier = ClassifierQuant();
   }
 
-  void _predict() async {
-    // img.Image imageInput = img.decodeImage(_hehe)!;
-    // var pred = _classifier.predict(imageInput);
-    // return pred;
-
-    // setState(() {
-    //   this.category = pred;
-    // });
+  Future<Map<String, double>> _predict() async {
+    print("here");
+    img.Image imageInput = img.decodeImage(hehe.readAsBytesSync())!;
+    Map<String, double> pred = _classifier.predict(imageInput);
+    return pred;
   }
 
   loadScreen() {
@@ -80,13 +77,14 @@ class _PredictionState extends State<Prediction> {
               gotResults = true;
               txt = "fetching...";
             });
-            _predict();
-            // var res = _predict();
-            // setState(() {
-            //   txt = res.toString();
-            //   isloaded = true;
-            // });
-            // print(res);
+            // _predict();
+            var res = await _predict();
+
+            setState(() {
+              txt = getTopProbability(res).key.toString().split(" ")[1];
+              isloaded = true;
+            });
+            print(res);
           },
           child: Container(
             // minWidth: 100,
@@ -131,7 +129,7 @@ class _PredictionState extends State<Prediction> {
               child: Container(
             height: w - 40,
             width: w - 40,
-            child: hehe,
+            child: Image.file(hehe),
           )),
           // gotResults(),
           SizedBox(
