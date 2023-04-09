@@ -127,139 +127,140 @@ class _HomeState extends State<Home> {
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
         drawer: Drawer(
+            elevation: 0,
             child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Stack(
-                alignment: Alignment.center,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Image.asset("assets/headers/$imageIndex.jpg"),
-                  Center(
-                      child: Align(
+                  Stack(
                     alignment: Alignment.center,
-                    child: Text(
-                      '"${quotes[quoteIndex]}"',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w400),
+                    children: <Widget>[
+                      Image.asset("assets/headers/$imageIndex.jpg"),
+                      Center(
+                          child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          '"${quotes[quoteIndex]}"',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontStyle: FontStyle.italic,
+                              fontSize: 20,
+                              fontWeight: FontWeight.w400),
+                        ),
+                      ))
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    "  Theme",
+                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
+                  ),
+                  InkWell(
+                    child: ListTile(
+                      leading: Icon(Icons.light_mode_outlined),
+                      title: Text("switch mode"),
+                      // trailing: Text("hemlo"),
                     ),
-                  ))
+                    onTap: () async {
+                      if (await AdaptiveTheme.getThemeMode() ==
+                          AdaptiveThemeMode.dark) {
+                        AdaptiveTheme.of(context).toggleThemeMode();
+                      }
+                      AdaptiveTheme.of(context).toggleThemeMode();
+                    },
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "  Terms",
+                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Privacy()));
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.lock_outline_rounded),
+                      title: Text("privacy policy"),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Condition()));
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.bookmark_outline_outlined),
+                      title: Text("terms and conditions"),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => About()));
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.info_outline_rounded),
+                      title: Text("about app"),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Usage()));
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.help_outline),
+                      title: Text("how to use"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Text(
+                    "  Gallery",
+                    style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Pictures()));
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.picture_in_picture_rounded),
+                      title: Text("view pictures"),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => Learn()));
+                    },
+                    child: ListTile(
+                      leading: Icon(Icons.navigation_outlined),
+                      title: Text("learn more"),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 40,
+                  ),
+                  Center(
+                    child: Text("v 1.0.0"),
+                  )
                 ],
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                "  Theme",
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
-              ),
-              InkWell(
-                child: ListTile(
-                  leading: Icon(Icons.light_mode_outlined),
-                  title: Text("switch mode"),
-                  // trailing: Text("hemlo"),
-                ),
-                onTap: () async {
-                  if (await AdaptiveTheme.getThemeMode() ==
-                      AdaptiveThemeMode.dark) {
-                    AdaptiveTheme.of(context).toggleThemeMode();
-                  }
-                  AdaptiveTheme.of(context).toggleThemeMode();
-                },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "  Terms",
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Privacy()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.lock_outline_rounded),
-                  title: Text("privacy policy"),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Condition()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.bookmark_outline_outlined),
-                  title: Text("terms and conditions"),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => About()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.info_outline_rounded),
-                  title: Text("about app"),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Usage()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.help_outline),
-                  title: Text("how to use"),
-                ),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                "  Gallery",
-                style: TextStyle(fontWeight: FontWeight.w300, fontSize: 25),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Pictures()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.picture_in_picture_rounded),
-                  title: Text("view pictures"),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Learn()));
-                },
-                child: ListTile(
-                  leading: Icon(Icons.navigation_outlined),
-                  title: Text("learn more"),
-                ),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              Center(
-                child: Text("v 1.0.0"),
-              )
-            ],
-          ),
-        )),
+            )),
         // appBar: AppBar(
         //   title: Text(
         //     "cloudees",
@@ -312,6 +313,7 @@ class _HomeState extends State<Home> {
                                           Padding(
                                             padding: EdgeInsets.all(10),
                                             child: MaterialButton(
+                                              elevation: 0,
                                               height: 50,
                                               minWidth: 50,
                                               padding: EdgeInsets.all(5),
@@ -344,6 +346,7 @@ class _HomeState extends State<Home> {
                                                   MainAxisAlignment.spaceAround,
                                               children: <Widget>[
                                                 MaterialButton(
+                                                    elevation: 0,
                                                     height: 50,
                                                     minWidth: 50,
                                                     padding: EdgeInsets.all(5),
@@ -369,6 +372,7 @@ class _HomeState extends State<Home> {
                                                     color: Theme.of(context)
                                                         .primaryColor),
                                                 MaterialButton(
+                                                  elevation: 0,
                                                   height: 50,
                                                   minWidth: 50,
                                                   padding: EdgeInsets.all(5),
@@ -404,6 +408,7 @@ class _HomeState extends State<Home> {
                                                       .primaryColor,
                                                 ),
                                                 MaterialButton(
+                                                    elevation: 0,
                                                     height: 50,
                                                     minWidth: 50,
                                                     padding: EdgeInsets.all(5),

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:image/image.dart' as img;
 import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class Prediction extends StatefulWidget {
   const Prediction({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ File hehe = File('assets/test.jpg');
 class _PredictionState extends State<Prediction> {
   bool isloaded = false;
   late Classifier _classifier;
-  late final data;
+  late final List<MapEntry<String, double>> data;
 
   @override
   void initState() {
@@ -36,46 +37,92 @@ class _PredictionState extends State<Prediction> {
   }
 
   loadScreen() {
+    print("data hai" + data.toString());
     if (!isloaded) {
       return CircularProgressIndicator();
     } else {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          SfCartesianChart(
-              primaryXAxis: CategoryAxis(),
-              primaryYAxis: NumericAxis(minimum: 0, maximum: 100, interval: 10),
-              series: <ChartSeries<MapEntry<String, double>, String>>[
-                BarSeries<MapEntry<String, double>, String>(
-                    dataSource: data,
-                    xValueMapper: (MapEntry<String, double> data, _) =>
-                        data.key.split(" ")[1],
-                    yValueMapper: (MapEntry<String, double> data, _) =>
-                        data.value,
-                    name: 'Gold',
-                    color: Color.fromRGBO(8, 142, 255, 1))
-              ]),
-          // Text(
-          //   txt,
-          //   style: TextStyle(fontSize: 40),
-          // ),
-          // IconButton(
-          //   onPressed: () {
-          //     // Navigator.push(
-          //     //     context,
-          //     //     MaterialPageRoute(
-          //     //         builder: (context) => WebView(
-          //     //               javascriptMode: JavascriptMode.unrestricted,
-          //     //               initialUrl:
-          //     //                   "https://en.wikipedia.org/wiki/${txt}_cloud",
-          //     //             )));
-          //   },
-          //   icon: Icon(
-          //     Icons.info_outline_rounded,
-          //     color: Theme.of(context).shadowColor,
-          //   ),
-          // )
-        ],
+      return SingleChildScrollView(
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  // data.value,
+                  data.last.key.split(" ")[1],
+                  style: TextStyle(fontSize: 40),
+                ),
+                IconButton(
+                  onPressed: () async {
+                    final controller = WebViewController()
+                      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+                      ..setBackgroundColor(const Color(0x00000000))
+                      ..setNavigationDelegate(
+                        NavigationDelegate(
+                          onProgress: (int progress) {
+                            // Update loading bar.
+                          },
+                          onPageStarted: (String url) {},
+                          onPageFinished: (String url) {},
+                          onWebResourceError: (WebResourceError error) {},
+                          onNavigationRequest: (NavigationRequest request) {
+                            if (request.url
+                                .startsWith('https://www.youtube.com/')) {
+                              return NavigationDecision.prevent;
+                            }
+                            return NavigationDecision.navigate;
+                          },
+                        ),
+                      )
+                      ..loadRequest(Uri.parse(
+                          "https://en.wikipedia.org/wiki/${data.last.key.split(" ")[1].toLowerCase()}_cloud"));
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) =>
+                                WebViewWidget(controller: controller))));
+                  },
+                  icon: Icon(
+                    Icons.info_outline_rounded,
+                    color: Theme.of(context).shadowColor,
+                  ),
+                ),
+              ],
+            ),
+            SfCartesianChart(
+                primaryXAxis: CategoryAxis(
+                  //Hide the gridlines of x-axis
+                  majorGridLines: MajorGridLines(width: 0),
+                  //Hide the axis line of x-axis
+                  axisLine: AxisLine(width: 0),
+                ),
+                primaryYAxis: NumericAxis(
+                    //Hide the gridlines of y-axis
+                    majorGridLines: MajorGridLines(width: 0),
+                    //Hide the axis line of y-axis
+                    axisLine: AxisLine(width: 0),
+                    minimum: 0,
+                    maximum: 100,
+                    interval: 25),
+                enableSideBySideSeriesPlacement: true,
+                plotAreaBackgroundColor: Colors.transparent,
+                plotAreaBorderColor: Colors.transparent,
+                series: <ChartSeries<MapEntry<String, double>, String>>[
+                  BarSeries<MapEntry<String, double>, String>(
+                      isTrackVisible: true,
+                      trackColor: Color.fromRGBO(160, 82, 255, 0.1),
+                      dataSource: data,
+                      xValueMapper: (MapEntry<String, double> data, _) =>
+                          data.key.split(" ")[1],
+                      yValueMapper: (MapEntry<String, double> data, _) =>
+                          data.value,
+                      name: 'Gold',
+                      color: Color.fromRGBO(160, 82, 255, 1))
+                ]),
+          ],
+        ),
       );
     }
   }
@@ -156,8 +203,6 @@ class _PredictionState extends State<Prediction> {
     );
   }
 }
-
-
 
 // check(txt) {
 //   if (isloading) {
