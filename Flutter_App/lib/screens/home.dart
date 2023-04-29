@@ -16,7 +16,7 @@ import 'package:cloudees/screens/prediction.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'dart:math';
-
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import '../utils/classifier.dart';
 
 class Home extends StatefulWidget {
@@ -81,10 +81,14 @@ class _HomeState extends State<Home> {
   }
 
   CameraController? controller;
-
+  bool loaded = false;
   // Color bgcolor = ;
   @override
   void initState() {
+    myBanner.load();
+    setState(() {
+      loaded = true;
+    });
     super.initState();
     _classifier = ClassifierQuant();
     controller = CameraController(cameras[index], ResolutionPreset.max,
@@ -114,16 +118,48 @@ class _HomeState extends State<Home> {
 
   ImagePicker picker = ImagePicker();
 
+  final BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-2604459233240782/4005744250',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(),
+  );
+  final BannerAdListener listener = BannerAdListener(
+    // Called when an ad is successfully received.
+    onAdLoaded: (Ad ad) => print('Ad loaded.'),
+    // Called when an ad request failed.
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+      // Dispose the ad here to free resources.
+      ad.dispose();
+      print('Ad failed to load: $error');
+    },
+    // Called when an ad opens an overlay that covers the screen.
+    onAdOpened: (Ad ad) => print('Ad opened.'),
+    // Called when an ad removes an overlay that covers the screen.
+    onAdClosed: (Ad ad) => print('Ad closed.'),
+    // Called when an impression occurs on the ad.
+    onAdImpression: (Ad ad) => print('Ad impression.'),
+  );
+
+  // myBanner.load();
+
   @override
   void dispose() {
     controller!.dispose();
     super.dispose();
   }
 
+  // @override
+  // void initState() {
+
+  //   super.initState();
+  // }
+
   var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final AdWidget adWidget = AdWidget(ad: myBanner);
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
         drawer: Drawer(
@@ -546,6 +582,7 @@ class _HomeState extends State<Home> {
                                                       color: Theme.of(context)
                                                           .dividerColor)),
                                               onPressed: () async {
+                                                print("checking");
                                                 XFile? image =
                                                     await picker.pickImage(
                                                         source:
@@ -578,7 +615,7 @@ class _HomeState extends State<Home> {
                                     color: Theme.of(context).backgroundColor,
                                     // color: Colors.orange,
                                   ),
-                                )
+                                ),
                               ],
                             )
                           ],
@@ -587,8 +624,20 @@ class _HomeState extends State<Home> {
                     // height: w,
                     width: w,
                   ),
+                  Expanded(
+                      child: Container(
+                    alignment: Alignment.center,
+                    child: loaded ? adWidget : SizedBox(),
+                    width: myBanner.size.width.toDouble(),
+                    height: myBanner.size.height.toDouble(),
+                  ))
                 ],
               )),
         ));
   }
 }
+
+// Widget Options(context, w, scaffoldKey, setState, controller, mounted,
+//     startTimer, picker) {
+//   return 
+// }

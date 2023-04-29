@@ -41,6 +41,7 @@ dependencies:
       ref: 783f15e5a87126159147d8ea30b98eea9207ac70
   logger: ^1.3.0
   syncfusion_flutter_charts: ^21.1.38
+  google_mobile_ads: ^3.0.0
 
 dev_dependencies:
   flutter_launcher_icons:

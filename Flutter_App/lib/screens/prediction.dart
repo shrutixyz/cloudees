@@ -32,7 +32,18 @@ class _PredictionState extends State<Prediction> {
   Future<List<MapEntry<String, double>>> _predict() async {
     print("here");
     img.Image imageInput = img.decodeImage(hehe.readAsBytesSync())!;
-    List<MapEntry<String, double>> pred = _classifier.predict(imageInput);
+    var cropSize = imageInput.width;
+    final imageBytes = img.decodeImage(hehe.readAsBytesSync())!;
+
+// setStat
+    img.Image cropOne = img.copyCrop(
+      imageBytes,
+      0,
+      0,
+      cropSize,
+      cropSize,
+    );
+    List<MapEntry<String, double>> pred = _classifier.predict(cropOne);
     return pred;
   }
 
@@ -189,9 +200,14 @@ class _PredictionState extends State<Prediction> {
         children: <Widget>[
           Center(
               child: Container(
+            // color: Colors.orange,
             height: w - 40,
             width: w - 40,
-            child: Image.file(hehe),
+            child: Image.file(
+              hehe,
+              fit: BoxFit.cover,
+              alignment: Alignment.topCenter,
+            ),
           )),
           // gotResults(),
           SizedBox(
