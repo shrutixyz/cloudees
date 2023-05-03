@@ -1,13 +1,11 @@
 import 'dart:io';
-
-import 'package:cloudees/requests/request.dart';
 import 'package:cloudees/utils/classifier.dart';
 import 'package:cloudees/utils/classifier_quant.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:image/image.dart' as img;
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class Prediction extends StatefulWidget {
   const Prediction({Key? key}) : super(key: key);
@@ -17,17 +15,49 @@ class Prediction extends StatefulWidget {
 }
 
 File hehe = File('assets/test.jpg');
+bool isAdNeverOpened = true;
 
 class _PredictionState extends State<Prediction> {
   bool isloaded = false;
   late Classifier _classifier;
   late final List<MapEntry<String, double>> data;
-
+  bool loadedPredAd = false;
   @override
   void initState() {
     super.initState();
+    if (isAdNeverOpened) {
+      _createInterstitialAd();
+    }
+    myBanner.load();
+    setState(() {
+      loadedPredAd = true;
+    });
+
     _classifier = ClassifierQuant();
   }
+
+  final BannerAd myBanner = BannerAd(
+    adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+    size: AdSize.banner,
+    request: AdRequest(),
+    listener: BannerAdListener(),
+  );
+  final BannerAdListener listener = BannerAdListener(
+    // Called when an ad is successfully received.
+    onAdLoaded: (Ad ad) => print('Ad loaded.'),
+    // Called when an ad request failed.
+    onAdFailedToLoad: (Ad ad, LoadAdError error) {
+      // Dispose the ad here to free resources.
+      ad.dispose();
+      print('Ad failed to load: $error');
+    },
+    // Called when an ad opens an overlay that covers the screen.
+    onAdOpened: (Ad ad) => print('Ad opened.'),
+    // Called when an ad removes an overlay that covers the screen.
+    onAdClosed: (Ad ad) => print('Ad closed.'),
+    // Called when an impression occurs on the ad.
+    onAdImpression: (Ad ad) => print('Ad impression.'),
+  );
 
   Future<List<MapEntry<String, double>>> _predict() async {
     print("here");
@@ -43,8 +73,57 @@ class _PredictionState extends State<Prediction> {
       cropSize,
       cropSize,
     );
-    List<MapEntry<String, double>> pred = _classifier.predict(cropOne);
+    List<MapEntry<String, double>> pred = _classifier.predict(imageInput);
     return pred;
+  }
+
+  void dispose() {
+    _interstitialAd?.dispose();
+    super.dispose();
+  }
+
+  InterstitialAd? _interstitialAd;
+  int _numInterstitialLoadAttempts = 0;
+  int maxFailedLoadAttempts = 3;
+
+  void _createInterstitialAd() {
+    setState(() {
+      isAdNeverOpened = false;
+    });
+    InterstitialAd.load(
+      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (InterstitialAd ad) {
+          _interstitialAd = ad;
+          _numInterstitialLoadAttempts = 0;
+          _showInterstitialAd();
+        },
+        onAdFailedToLoad: (LoadAdError error) {
+          _numInterstitialLoadAttempts += 1;
+          _interstitialAd = null;
+          if (_numInterstitialLoadAttempts < maxFailedLoadAttempts) {
+            _createInterstitialAd();
+          }
+        },
+      ),
+    );
+  }
+
+  void _showInterstitialAd() {
+    if (_interstitialAd == null) {
+      print('Warning: attempt to show interstitial before loaded.');
+      return;
+    }
+    _interstitialAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdDismissedFullScreenContent: (InterstitialAd ad) {
+        ad.dispose();
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Prediction()));
+      },
+    );
+    _interstitialAd!.show();
+    _interstitialAd = null;
   }
 
   loadScreen() {
@@ -54,13 +133,11 @@ class _PredictionState extends State<Prediction> {
     } else {
       return SingleChildScrollView(
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  // data.value,
                   data.last.key.split(" ")[1],
                   style: TextStyle(fontSize: 40),
                 ),
@@ -150,9 +227,7 @@ class _PredictionState extends State<Prediction> {
               gotResults = true;
               txt = "fetching...";
             });
-            // _predict();
             var res = await _predict();
-
             setState(() {
               data = res;
               isloaded = true;
@@ -160,10 +235,6 @@ class _PredictionState extends State<Prediction> {
             print(res);
           },
           child: Container(
-            // minWidth: 100,
-            // height: 80,
-            // color: Colors.blueGrey,
-
             width: 250,
             height: 70,
             decoration: BoxDecoration(
@@ -191,39 +262,47 @@ class _PredictionState extends State<Prediction> {
   String txt = "fetching...";
   @override
   Widget build(BuildContext context) {
+    final AdWidget adWidget = AdWidget(ad: myBanner);
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Container(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Center(
-              child: Container(
-            // color: Colors.orange,
-            height: w - 40,
-            width: w - 40,
-            child: Image.file(
-              hehe,
-              fit: BoxFit.cover,
-              alignment: Alignment.topCenter,
+      body: SafeArea(
+          child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: 20,
             ),
-          )),
-          // gotResults(),
-          SizedBox(
-            height: 40,
-          ),
-          resUpdate()
-        ],
+            Center(
+                child: Container(
+              height: w - 40,
+              width: w - 40,
+              child: Image.file(
+                hehe,
+                fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
+              ),
+            )),
+            SizedBox(
+              height: 20,
+            ),
+            resUpdate(),
+            SizedBox(
+              height: 20,
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: loadedPredAd ? adWidget : SizedBox(),
+              width: myBanner.size.width.toDouble(),
+              height: myBanner.size.height.toDouble(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
+        ),
       )),
     );
   }
 }
-
-// check(txt) {
-//   if (isloading) {
-//     return CircularProgressIndicator();
-//   } else {
-//     return Text(txt);
-//   }
-// }

@@ -9,7 +9,6 @@ import 'package:cloudees/screens/usage.dart';
 import 'package:cloudees/utils/classifier_quant.dart';
 import 'package:image/image.dart' as img;
 import 'package:image_picker/image_picker.dart';
-
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:cloudees/main.dart';
 import 'package:cloudees/screens/prediction.dart';
@@ -49,7 +48,6 @@ Icon timerIcon = Icon(Icons.timer_off);
 bool isTimerOn = false;
 Color timerOp = Colors.transparent;
 int _start = 3;
-File? _hehe;
 
 class _HomeState extends State<Home> {
   late Timer _timer;
@@ -88,7 +86,9 @@ class _HomeState extends State<Home> {
     myBanner.load();
     setState(() {
       loaded = true;
+      isAdNeverOpened = true;
     });
+    // _createInterstitialAd();
     super.initState();
     _classifier = ClassifierQuant();
     controller = CameraController(cameras[index], ResolutionPreset.max,
@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
   ImagePicker picker = ImagePicker();
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-2604459233240782/4005744250',
+    adUnitId: 'ca-app-pub-3940256099942544/6300978111',
     size: AdSize.banner,
     request: AdRequest(),
     listener: BannerAdListener(),
@@ -146,6 +146,7 @@ class _HomeState extends State<Home> {
   @override
   void dispose() {
     controller!.dispose();
+
     super.dispose();
   }
 
@@ -536,13 +537,14 @@ class _HomeState extends State<Home> {
                                                                 hehe = File(
                                                                     value.path);
                                                               }),
+
                                                               // _predict()
                                                               Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
                                                                       builder:
                                                                           (context) =>
-                                                                              Prediction()))
+                                                                              Prediction())),
                                                             });
                                                     setState(() {
                                                       timerOp =
@@ -585,11 +587,11 @@ class _HomeState extends State<Home> {
                                                 print("checking");
                                                 XFile? image =
                                                     await picker.pickImage(
-                                                        source:
-                                                            ImageSource.gallery,
-                                                        ////////////////////////////////////
-                                                        maxWidth: 500,
-                                                        maxHeight: 500);
+                                                  source: ImageSource.gallery,
+                                                  ////////////////////////////////////
+                                                  // maxWidth: 2000,
+                                                  // maxHeight: 2000
+                                                );
                                                 setState(() {
                                                   hehe = File(image!.path);
                                                 });
@@ -612,7 +614,8 @@ class _HomeState extends State<Home> {
                                         )
                                       ],
                                     ),
-                                    color: Theme.of(context).backgroundColor,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
                                     // color: Colors.orange,
                                   ),
                                 ),
