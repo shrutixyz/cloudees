@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
   ImagePicker picker = ImagePicker();
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+    adUnitId: 'ca-app-pub-2604459233240782/4005744250',
     size: AdSize.banner,
     request: AdRequest(),
     listener: BannerAdListener(),
@@ -588,6 +588,9 @@ class _HomeState extends State<Home> {
                                                 XFile? image =
                                                     await picker.pickImage(
                                                   source: ImageSource.gallery,
+                                                  maxHeight: 500,
+                                                  maxWidth: 500,
+
                                                   ////////////////////////////////////
                                                   // maxWidth: 2000,
                                                   // maxHeight: 2000

@@ -21,6 +21,7 @@ class _PredictionState extends State<Prediction> {
   bool isloaded = false;
   late Classifier _classifier;
   late final List<MapEntry<String, double>> data;
+  bool showloader = false;
   bool loadedPredAd = false;
   @override
   void initState() {
@@ -37,7 +38,7 @@ class _PredictionState extends State<Prediction> {
   }
 
   final BannerAd myBanner = BannerAd(
-    adUnitId: 'ca-app-pub-3940256099942544/6300978111',
+    adUnitId: 'ca-app-pub-2604459233240782/4005744250',
     size: AdSize.banner,
     request: AdRequest(),
     listener: BannerAdListener(),
@@ -73,7 +74,10 @@ class _PredictionState extends State<Prediction> {
       cropSize,
       cropSize,
     );
-    List<MapEntry<String, double>> pred = _classifier.predict(imageInput);
+
+    // img.Image cropFinal = img.copyResize(cropOne, height: 1000, width: 1000);
+
+    List<MapEntry<String, double>> pred = _classifier.predict(cropOne);
     return pred;
   }
 
@@ -91,7 +95,7 @@ class _PredictionState extends State<Prediction> {
       isAdNeverOpened = false;
     });
     InterstitialAd.load(
-      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      adUnitId: "ca-app-pub-2604459233240782/7562718027",
       request: AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (InterstitialAd ad) {
@@ -224,11 +228,13 @@ class _PredictionState extends State<Prediction> {
       return InkWell(
           onTap: () async {
             setState(() {
+              showloader = true;
               gotResults = true;
               txt = "fetching...";
             });
             var res = await _predict();
             setState(() {
+              showloader = false;
               data = res;
               isloaded = true;
             });
@@ -241,17 +247,24 @@ class _PredictionState extends State<Prediction> {
               borderRadius: BorderRadius.circular(10),
               color: Theme.of(context).primaryColor,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Icon(Icons.settings_overscan_outlined,
-                    color: Theme.of(context).shadowColor),
-                Text(
-                  "Get Results",
-                  style: TextStyle(fontSize: 25),
-                )
-              ],
-            ),
+            child: showloader
+                ? Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: CircularProgressIndicator(),
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Icon(Icons.settings_overscan_outlined,
+                          color: Theme.of(context).shadowColor),
+                      Text(
+                        "Get Results",
+                        style: TextStyle(fontSize: 25),
+                      )
+                    ],
+                  ),
           ));
     }
   }
