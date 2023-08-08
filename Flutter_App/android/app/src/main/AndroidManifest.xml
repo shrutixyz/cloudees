@@ -1,10 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zanie.cloudees">
+    package="co.zanie.cloudees">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
         android:label="cloudees"
         android:icon="@mipmap/launcher_icon">
         <activity
+            android:exported="true"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"

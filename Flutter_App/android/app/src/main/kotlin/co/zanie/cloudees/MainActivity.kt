@@ -1,4 +1,4 @@
-package com.zanie.cloudees
+package co.zanie.cloudees
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -132,7 +132,7 @@ class _PredictionState extends State<Prediction> {
 
   loadScreen() {
     print("data hai" + data.toString());
-    if (!isloaded) {
+    if (showloader) {
       return CircularProgressIndicator();
     } else {
       return SingleChildScrollView(
@@ -232,7 +232,9 @@ class _PredictionState extends State<Prediction> {
               gotResults = true;
               txt = "fetching...";
             });
+            print("--================================predict");
             var res = await _predict();
+            print("==============================predicted");
             setState(() {
               showloader = false;
               data = res;
