@@ -1,0 +1,9 @@
+0 Cirrus
+1 Cirrocumulus
+2 Cirrostratus
+3 Altocumulus
+4 Nimbostratus
+5 Cumulus
+6 Cumulonimbus
+7 Stratocumulus
+8 Stratus

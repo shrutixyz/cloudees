@@ -48,9 +48,11 @@ For performing model training:- <br>
 For viewing the dataset:- <br>
 - ```cd Dataset```
 
-# Demo Video
+# Demo Videos
 
 https://youtu.be/nzDzdQV6-lo
+https://youtu.be/VMq_Re-lq0U
+
 
 # Screenshots
 

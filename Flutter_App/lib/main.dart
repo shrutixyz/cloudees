@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 List<CameraDescription> cameras = [];
 
@@ -14,6 +15,7 @@ Future<void> main() async {
   // Fetch the available cameras before initializing the app.
   try {
     WidgetsFlutterBinding.ensureInitialized();
+    MobileAds.instance.initialize();
     cameras = await availableCameras();
   } on CameraException catch (e) {
     print('Error in fetching the cameras: $e');
@@ -26,6 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveTheme(
       light: ThemeData(
+        scaffoldBackgroundColor: lightbg,
         focusColor: Color.fromRGBO(31, 150, 201, 1),
         buttonTheme: ButtonThemeData(buttonColor: Colors.black),
         listTileTheme: ListTileThemeData(
@@ -40,11 +43,9 @@ class MyApp extends StatelessWidget {
             color: lightbg,
             systemOverlayStyle: SystemUiOverlayStyle.light),
         brightness: Brightness.light,
-        backgroundColor: lightbg,
         primaryColor: Colors.white,
         primarySwatch: Colors.lightBlue,
         shadowColor: Colors.black,
-        scaffoldBackgroundColor: lightbg,
         dividerColor: Color.fromRGBO(31, 150, 201, 1),
         canvasColor: Colors.black,
       ),
@@ -63,7 +64,6 @@ class MyApp extends StatelessWidget {
               systemOverlayStyle: SystemUiOverlayStyle.dark),
           scaffoldBackgroundColor: darkbg,
           primaryColor: Colors.black,
-          backgroundColor: darkbg,
           brightness: Brightness.dark,
           primarySwatch: Colors.blueGrey,
           dividerColor: Colors.white),
